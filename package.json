@@ -1,0 +1,89 @@
+{
+  "name": "log-wiz",
+  "version": "1.0.0",
+  "description": "The ultra-lightweight, high-performance logger for Node.js and Browser with automatic PII masking and zero dependencies.",
+  "author": {
+    "name": "GourangaDasSamrat",
+    "email": "gouranga.samrat@gmail.com",
+    "url": "https://github.com/GourangaDasSamrat"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GourangaDasSamrat/log-wiz.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GourangaDasSamrat/log-wiz/issues"
+  },
+  "homepage": "https://github.com/GourangaDasSamrat/log-wiz#readme",
+  "keywords": [
+    "logger",
+    "logging",
+    "pii",
+    "masking",
+    "typescript",
+    "browser",
+    "nodejs",
+    "structured-logging",
+    "zero-dependency",
+    "lightweight"
+  ],
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "browser": "./dist/browser/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "browser": "./dist/browser/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./core": {
+      "types": "./dist/types/core/index.d.ts",
+      "browser": "./dist/browser/core/index.js",
+      "import": "./dist/esm/core/index.js",
+      "require": "./dist/cjs/core/index.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "npm run build:clean && npm run build:esm && npm run build:cjs && npm run build:browser && npm run build:types",
+    "build:clean": "node -e \"const fs=require('fs');fs.rmSync('dist',{recursive:true,force:true});\"",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:browser": "tsc -p tsconfig.browser.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "test": "jest --config jest.config.cjs",
+    "test:watch": "jest --config jest.config.cjs --watch",
+    "test:coverage": "jest --config jest.config.cjs --coverage",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "prepublishOnly": "npm run lint && npm test && npm run build",
+    "size": "size-limit"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.3.2",
+    "ts-jest": "^29.1.5",
+    "typescript": "^5.5.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,17 @@
+# Source (types only needed from dist)
+src/
+tests/
+examples/
+docs/
+
+# Config files
+.eslintrc.cjs
+.prettierrc
+jest.config.cjs
+tsconfig*.json
+.github/
+
+# Dev artifacts
+coverage/
+*.tsbuildinfo
+.env*

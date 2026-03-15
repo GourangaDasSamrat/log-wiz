@@ -1,0 +1,90 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'   # triggers on v1.0.0, v2.1.3, etc.
+
+permissions:
+  contents: write  # needed to create GitHub Release
+  id-token: write  # needed for npm provenance
+
+jobs:
+  # ── 1. Quality gate ──────────────────────────────────────────────────────
+  test:
+    name: Test (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18', '20', '22']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  # ── 2. Build & publish ───────────────────────────────────────────────────
+  publish:
+    name: Build & Publish
+    needs: test
+    runs-on: ubuntu-latest
+    environment: npm-publish
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      # ── Sync package.json version with the git tag ──────────────────────
+      # Use `jq` instead of `npm version` to avoid "Version not changed" error
+      # when the tag already matches the version in package.json.
+      - name: Sync version from tag
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"    # strip leading "v"  →  1.0.0
+          echo "Publishing version: $VERSION"
+          # Write version directly into package.json — no git operations needed
+          jq --arg v "$VERSION" '.version = $v' package.json > package.tmp.json
+          mv package.tmp.json package.json
+          echo "RELEASE_VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Dry-run pack check
+        run: npm pack --dry-run
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # ── Create GitHub Release with auto-generated notes ──────────────────
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "date-wiz ${{ env.RELEASE_VERSION }}"
+          generate_release_notes: true
+          files: |
+            date-wiz-*.tgz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

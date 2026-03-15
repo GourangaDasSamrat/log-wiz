@@ -5,7 +5,7 @@
 **The ultra-lightweight, high-performance logger for Node.js and Browser**  
 *with automatic PII masking and zero dependencies.*
 
-[![npm version](https://img.shields.io/npm/v/log-wiz?style=flat-square&color=crimson)](https://www.npmjs.com/package/log-wiz)
+[![npm version](https://img.shields.io/npm/v/@gourangadassamrat/log-wiz?style=flat-square&color=crimson)](https://www.npmjs.com/package/@gourangadassamrat/log-wiz)
 [![CI](https://img.shields.io/github/actions/workflow/status/GourangaDasSamrat/log-wiz/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/GourangaDasSamrat/log-wiz/actions)
 [![Coverage](https://img.shields.io/badge/coverage-80%25%2B-brightgreen?style=flat-square)](https://github.com/GourangaDasSamrat/log-wiz)
 [![Bundle size](https://img.shields.io/badge/gzipped-%3C1.5KB-blue?style=flat-square)](https://github.com/GourangaDasSamrat/log-wiz)
@@ -36,11 +36,11 @@
 ## Installation
 
 ```bash
-npm install log-wiz
+npm install @gourangadassamrat/log-wiz
 # or
-yarn add log-wiz
+yarn add @gourangadassamrat/log-wiz
 # or
-pnpm add log-wiz
+pnpm add @gourangadassamrat/log-wiz
 ```
 
 ---
@@ -48,7 +48,7 @@ pnpm add log-wiz
 ## Quick Start
 
 ```typescript
-import { wiz } from 'log-wiz';
+import { wiz } from '@gourangadassamrat/log-wiz';
 
 wiz.info('Server started', { meta: { port: 3000 } });
 wiz.warn('Rate limit approaching', { meta: { current: 980, limit: 1000 } });
@@ -85,7 +85,7 @@ Levels are ordered by severity. Setting a level filters out everything below it.
 | `none`  | ∞  | **No-op mode** — zero output, zero overhead |
 
 ```typescript
-import { Wiz } from 'log-wiz';
+import { Wiz } from '@gourangadassamrat/log-wiz';
 
 const logger = new Wiz({ level: 'warn' });
 
@@ -100,7 +100,7 @@ logger.error('logged ✓');
 ## Configuration
 
 ```typescript
-import { Wiz } from 'log-wiz';
+import { Wiz } from '@gourangadassamrat/log-wiz';
 
 const logger = new Wiz({
   // Minimum level to output. 'none' = silence everything.
@@ -228,7 +228,7 @@ logger.info('Processing request', { correlationId: req.headers['x-request-id'] }
 ## Multi-Instance / Scoped Loggers
 
 ```typescript
-import { Wiz } from 'log-wiz';
+import { Wiz } from '@gourangadassamrat/log-wiz';
 
 const dbLogger   = new Wiz({ scope: 'database', level: 'debug' });
 const httpLogger = new Wiz({ scope: 'http',     level: 'info'  });
@@ -285,7 +285,7 @@ In a browser environment log-wiz automatically:
 
 ```typescript
 // Works identically in React, Vue, Svelte, etc.
-import { wiz } from 'log-wiz';
+import { wiz } from '@gourangadassamrat/log-wiz';
 wiz.info('Component mounted', { meta: { component: 'UserProfile' } });
 ```
 
@@ -309,7 +309,7 @@ Import only the level methods you use — bundlers (Rollup, esbuild, webpack) wi
 
 ```typescript
 // Only ships the error-related code path
-import { Wiz } from 'log-wiz/core';
+import { Wiz } from '@gourangadassamrat/log-wiz/core';
 const logger = new Wiz({ level: 'error' });
 export const logError = logger.error.bind(logger);
 ```
@@ -321,13 +321,13 @@ export const logError = logger.error.bind(logger);
 log-wiz is written **entirely in TypeScript** and ships complete type declarations.
 
 ```typescript
-import type { WizConfig, LogEntry, IWiz, LogLevel } from 'log-wiz';
+import type { WizConfig, LogEntry, IWiz, LogLevel } from '@gourangadassamrat/log-wiz';
 
 // Full IntelliSense on config
 const config: WizConfig = { level: 'debug', scope: 'payments' };
 
 // Typed log entries (useful for custom transports)
-import type { Transport } from 'log-wiz';
+import type { Transport } from '@gourangadassamrat/log-wiz';
 class MyTransport implements Transport {
   write(entry: LogEntry): void {
     sendToMyService(entry);
@@ -340,8 +340,8 @@ class MyTransport implements Transport {
 ## Custom Transports
 
 ```typescript
-import { Wiz } from 'log-wiz';
-import type { Transport, LogEntry } from 'log-wiz';
+import { Wiz } from '@gourangadassamrat/log-wiz';
+import type { Transport, LogEntry } from '@gourangadassamrat/log-wiz';
 
 class DatadogTransport implements Transport {
   write(entry: LogEntry): void {

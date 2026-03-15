@@ -1,6 +1,5 @@
 <div align="center">
-
-# log-wiz
+# 🧙 log-wiz
 
 **The ultra-lightweight, high-performance logger for Node.js and Browser**
 **with automatic PII masking and zero dependencies.**

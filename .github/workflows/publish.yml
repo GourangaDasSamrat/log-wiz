@@ -82,7 +82,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: "@gourangadassamrat/log-wiz ${{ env.RELEASE_VERSION }}"
+          name: "@gouranga_samrat/log-wiz ${{ env.RELEASE_VERSION }}"
           generate_release_notes: true
           files: |
             date-wiz-*.tgz

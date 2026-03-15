@@ -45,7 +45,7 @@ const LEVEL_STYLES: Record<string, { badge: string; msgColour: AnsiKey }> = {
 
 export class ConsolePrettyTransport implements Transport {
   write(entry: LogEntry): void {
-    const style = LEVEL_STYLES[entry.level] ?? LEVEL_STYLES['info']!;
+    const style = LEVEL_STYLES[entry.level] ?? LEVEL_STYLES['info'];
     const ts = c('dim', formatTimestampPretty(entry.timestamp));
     const scope = entry.scope ? c('cyan', `[${entry.scope}]`) + ' ' : '';
     const cid = entry.correlationId ? c('grey', `{${entry.correlationId}}`) + ' ' : '';

@@ -1,4 +1,5 @@
 <div align="center">
+  
 # 🧙 log-wiz
 
 **The ultra-lightweight, high-performance logger for Node.js and Browser**

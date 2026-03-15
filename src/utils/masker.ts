@@ -38,20 +38,23 @@ export function maskSensitiveData(
     return value;
   }
 
+  // value is narrowed to object — assign once to avoid repeated casts
+  const obj = value as Record<string, unknown>;
+
   // Circular reference guard
-  if (seen.has(value as object)) {
+  if (seen.has(obj)) {
     return '[Circular]';
   }
-  seen.add(value as object);
+  seen.add(obj);
 
-  if (Array.isArray(value)) {
-    const result = value.map((item) => maskSensitiveData(item, maskedKeys, seen));
-    seen.delete(value as object);
+  if (Array.isArray(obj)) {
+    const result = (obj as unknown[]).map((item) => maskSensitiveData(item, maskedKeys, seen));
+    seen.delete(obj);
     return result;
   }
 
   const result: Record<string, unknown> = {};
-  for (const [key, val] of Object.entries(value as Record<string, unknown>)) {
+  for (const [key, val] of Object.entries(obj)) {
     const normalizedKey = key.toLowerCase().replace(/[-_\s]/g, '');
     if (maskedKeys.has(normalizedKey) || maskedKeys.has(key.toLowerCase())) {
       result[key] = MASK_VALUE;
@@ -59,7 +62,7 @@ export function maskSensitiveData(
       result[key] = maskSensitiveData(val, maskedKeys, seen);
     }
   }
-  seen.delete(value as object);
+  seen.delete(obj);
   return result;
 }
 

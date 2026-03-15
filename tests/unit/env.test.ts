@@ -13,10 +13,20 @@ describe('isNode', () => {
 
 describe('isProduction', () => {
   const originalEnv = process.env['NODE_ENV'];
+  const originalCI  = process.env['CI'];
+
+  beforeEach(() => {
+    // Always clear CI so GitHub Actions doesn't bleed into assertions
+    delete process.env['CI'];
+  });
 
   afterEach(() => {
     process.env['NODE_ENV'] = originalEnv;
-    delete process.env['CI'];
+    if (originalCI !== undefined) {
+      process.env['CI'] = originalCI;
+    } else {
+      delete process.env['CI'];
+    }
   });
 
   it('returns false when NODE_ENV is development', () => {

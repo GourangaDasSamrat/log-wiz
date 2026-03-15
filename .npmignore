@@ -1,10 +1,10 @@
-# Source (types only needed from dist)
+# Source TypeScript (consumers use dist/ + dist/types/)
 src/
-tests/
-examples/
-docs/
 
-# Config files
+# Tests
+tests/
+
+# Config & tooling
 .eslintrc.cjs
 .prettierrc
 jest.config.cjs
@@ -13,5 +13,9 @@ tsconfig*.json
 
 # Dev artifacts
 coverage/
+logs/
 *.tsbuildinfo
 .env*
+
+# Examples (kept in repo, not needed in package)
+examples/

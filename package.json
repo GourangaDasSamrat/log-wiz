@@ -1,6 +1,6 @@
 {
   "name": "@gouranga_samrat/log-wiz",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The ultra-lightweight, high-performance logger for Node.js and Browser with automatic PII masking and zero dependencies.",
   "author": {
     "name": "GourangaDasSamrat",

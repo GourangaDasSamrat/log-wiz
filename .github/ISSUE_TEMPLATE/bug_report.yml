@@ -1,0 +1,120 @@
+name: Bug Report
+description: Report a reproducible bug or regression
+title: "bug: "
+labels: [bug, needs-triage]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug! Please fill out the form below to help us understand and fix the issue.
+
+        Before submitting, please:
+        - Search [existing issues](https://github.com/GourangaDasSamrat/log-wiz/issues) to avoid duplicates
+        - Provide a minimal reproducible example (MRE)
+        - Include environment details
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is
+      placeholder: |
+        When I do X, Y happens unexpectedly
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: To Reproduce
+      description: Minimal reproducible example
+      placeholder: |
+        import { wiz } from '@gouranga_samrat/log-wiz';
+
+        // Your code here
+      render: typescript
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should happen instead?
+      placeholder: The logger should...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happens? Include error messages and stack traces.
+      placeholder: |
+        Error: TypeError: Cannot read property...
+        at ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: node-version
+    attributes:
+      label: Node.js version
+      options:
+        - v18.x
+        - v20.x
+        - v22.x
+        - Other (please specify)
+    validations:
+      required: true
+
+  - type: input
+    id: logwiz-version
+    attributes:
+      label: log-wiz version
+      placeholder: "1.0.2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      options:
+        - Node.js
+        - Browser (Chrome)
+        - Browser (Firefox)
+        - Browser (Safari)
+        - Browser (Other)
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: "macOS 14 / Ubuntu 22.04 / Windows 11"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Any other context, logs, or screenshots that might help
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues and found no duplicates
+          required: true
+        - label: I can reproduce this bug consistently
+          required: true
+        - label: I am running the latest version of log-wiz
+          required: true
+        - label: I have provided a minimal reproducible example (MRE)
+          required: true

@@ -1,5 +1,5 @@
 <div align="center">
-  
+
 # 🧙 log-wiz
 
 **The ultra-lightweight, high-performance logger for Node.js and Browser**
@@ -21,7 +21,8 @@
 **[📖 Full Documentation](https://GourangaDasSamrat.github.io/log-wiz-docs/)** &nbsp;·&nbsp;
 **[🚀 Getting Started](https://GourangaDasSamrat.github.io/log-wiz-docs/guides/getting-started/)** &nbsp;·&nbsp;
 **[📦 npm Package](https://www.npmjs.com/package/@gouranga_samrat/log-wiz)** &nbsp;·&nbsp;
-**[🐛 Report a Bug](https://github.com/GourangaDasSamrat/log-wiz/issues)**
+**[🐛 Report a Bug](https://github.com/GourangaDasSamrat/log-wiz/issues/new?template=bug_report.md)** &nbsp;·&nbsp;
+**[💬 Contribute](docs/CONTRIBUTING.md)**
 
 </div>
 
@@ -437,7 +438,16 @@ Flushes buffers and releases all resources (file handles, timers). Always `await
 
 ## Contributing
 
-Contributions, bug reports, and feature requests are welcome.
+Contributions, bug reports, and feature requests are welcome. We have a comprehensive contributing guide and templates to make the process smooth.
+
+### Quick Links
+
+- **[Contributing Guide](docs/CONTRIBUTING.md)** — Commit conventions, branch naming, testing, coding standards, and zero-dependency rule
+- **[Report a Bug](https://github.com/GourangaDasSamrat/log-wiz/issues/new?template=bug_report.md)** — Use the bug report template with MRE and environment details
+- **[Request a Feature](https://github.com/GourangaDasSamrat/log-wiz/issues/new?template=feature_request.md)** — Use the feature request template explain the use case
+- **[Discussions](https://github.com/GourangaDasSamrat/log-wiz/discussions)** — Ask questions or start informal discussions
+
+### First-Time Setup
 
 ```bash
 git clone https://github.com/GourangaDasSamrat/log-wiz.git
@@ -448,9 +458,16 @@ npm run test:coverage # with coverage report
 npm run build         # compiles ESM + CJS + browser + types
 ```
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request — it covers the commit convention, coding standards, and the zero-runtime-dependencies rule.
+### Before You Submit
 
-For security vulnerabilities, see [SECURITY.md](SECURITY.md) and use private reporting rather than opening a public issue.
+- ✅ Read [CONTRIBUTING.md](docs/CONTRIBUTING.md) for commit conventions and coding standards
+- ✅ Follow the pull request template — it guides you through what we need
+- ✅ Ensure `npm run lint && npm test && npm run build` all pass locally
+- ✅ Remember: **zero dependencies** is non-negotiable
+
+### Security
+
+For security vulnerabilities, see [SECURITY.md](docs/SECURITY.md) — report privately rather than opening a public issue.
 
 ---
 

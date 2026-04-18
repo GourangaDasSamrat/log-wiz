@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Questions or Discussions
+    url: https://github.com/GourangaDasSamrat/log-wiz/discussions
+    about: Ask questions or start a discussion about usage and ideas
+  - name: 📖 Documentation
+    url: https://GourangaDasSamrat.github.io/log-wiz-docs/
+    about: Browse the full documentation site
+  - name: 🔒 Security Issue
+    url: https://github.com/GourangaDasSamrat/log-wiz/security/advisories/new
+    about: Report a security vulnerability privately

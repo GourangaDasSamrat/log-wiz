@@ -32,11 +32,19 @@ By participating you agree to uphold it. Please report unacceptable behaviour to
 
 You do not need to write code to contribute:
 
-- 🐛 **Report a bug** — [open an issue](https://github.com/GourangaDasSamrat/log-wiz/issues/new?template=bug_report.md)
-- 💡 **Suggest a feature** — [open a discussion](https://github.com/GourangaDasSamrat/log-wiz/discussions)
+- 🐛 **Report a bug** — [open an issue using the bug template](https://github.com/GourangaDasSamrat/log-wiz/issues/new?template=bug_report.md)
+- 💡 **Suggest a feature** — [open an issue using the feature template](https://github.com/GourangaDasSamrat/log-wiz/issues/new?template=feature_request.md)
+- 💬 **Ask questions** — [start a discussion](https://github.com/GourangaDasSamrat/log-wiz/discussions)
 - 📖 **Improve docs** — fix typos, add examples, clarify unclear sections
 - 🔍 **Review pull requests** — feedback from users is always valuable
 - ⭐ **Star the repo** — helps others discover the project
+
+### Issue Templates
+
+When you open an issue, please use the appropriate template:
+
+- **Bug Report** — For reproducible bugs and regressions. Include a minimal reproducible example (MRE), environment details, and expected vs actual behavior.
+- **Feature Request** — For new features or improvements. Explain the use case, propose the API, and consider alignment with log-wiz's lightweight philosophy.
 
 ---
 
@@ -180,7 +188,12 @@ WizOptions to WizConfig. Update all import statements accordingly.
 
 1. **Open an issue first** for significant changes — alignment before code saves time.
 2. **Keep PRs focused** — one logical change per PR makes review easier.
-3. **Fill in the PR template** — describe what changed and why.
+3. **Fill in the PR template** — a comprehensive template is provided when you open a PR. It includes:
+   - Description of changes
+   - Type of change (bug fix, feature, breaking change, etc.)
+   - Related issue(s)
+   - Testing steps
+   - Checklist to ensure all requirements are met
 4. **Ensure CI is green** — all checks must pass before review.
 5. **Respond to review feedback** — address comments or explain your reasoning.
 6. **Squash on merge** — maintainers will squash commits to keep history clean.
@@ -192,6 +205,7 @@ PR titles follow the same Conventional Commits format as commit messages:
 ```
 fix(masker): prevent RangeError on deeply nested circular objects
 feat(transports): add Seq structured-log transport
+docs(readme): clarify browser support section
 ```
 
 ---

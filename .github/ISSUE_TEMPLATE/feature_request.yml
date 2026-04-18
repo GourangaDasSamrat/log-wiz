@@ -1,0 +1,80 @@
+name: Feature Request
+description: Suggest a new feature or enhancement
+title: "feat: "
+labels: [enhancement, needs-triage]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting an improvement! Help us understand your feature request by filling out the form below.
+
+        Please consider:
+        - Does this align with log-wiz's principles? (lightweight, zero-dependency, high-performance)
+        - Is there a real use case or problem being solved?
+        - Have you searched [existing issues](https://github.com/GourangaDasSamrat/log-wiz/issues)?
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is this related to a problem?
+      description: Describe the problem or use case you're trying to solve
+      placeholder: |
+        Currently, I'm trying to... but there's no way to...
+
+        import { wiz } from '@gouranga_samrat/log-wiz';
+        // Example showing the limitation
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: What should log-wiz do?
+      placeholder: I would like log-wiz to support...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-api
+    attributes:
+      label: Proposed API (if applicable)
+      description: Show an example of how you'd like to use this feature
+      placeholder: |
+        import { wiz } from '@gouranga_samrat/log-wiz';
+
+        const logger = new Wiz({
+          // Your proposed API here
+        });
+      render: typescript
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What other solutions or workarounds have you considered?
+      placeholder: I also considered... but decided that...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: |
+        - Why is this feature valuable?
+        - Will this add complexity to log-wiz?
+        - Are there breaking changes?
+        - Any related issues or discussions?
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues and found no duplicates
+          required: true
+        - label: I have read the documentation
+          required: true
+        - label: This feature aligns with log-wiz's principles (lightweight, zero-dependency, high-performance)
+          required: true

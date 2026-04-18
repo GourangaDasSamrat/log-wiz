@@ -13,15 +13,15 @@ describe('maskSensitiveData', () => {
   it('masks nested sensitive keys', () => {
     const input = { user: { token: 'abc123', name: 'Bob' } };
     const result = maskSensitiveData(input, keys) as typeof input;
-    expect((result.user as Record<string,unknown>).token).toBe('[MASKED]');
-    expect((result.user as Record<string,unknown>).name).toBe('Bob');
+    expect((result.user as Record<string, unknown>).token).toBe('[MASKED]');
+    expect((result.user as Record<string, unknown>).name).toBe('Bob');
   });
 
   it('handles arrays containing objects', () => {
     const input = [{ secret: 'x' }, { name: 'y' }];
     const result = maskSensitiveData(input, keys) as typeof input;
-    expect((result[0] as Record<string,unknown>).secret).toBe('[MASKED]');
-    expect((result[1] as Record<string,unknown>).name).toBe('y');
+    expect((result[0] as Record<string, unknown>).secret).toBe('[MASKED]');
+    expect((result[1] as Record<string, unknown>).name).toBe('y');
   });
 
   it('handles circular references without throwing', () => {

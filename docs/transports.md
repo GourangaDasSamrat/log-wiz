@@ -11,9 +11,9 @@ writes it somewhere. log-wiz ships four transports out of the box.
 import type { Transport, LogEntry } from '@gouranga_samrat/log-wiz';
 
 interface Transport {
-  write(entry: LogEntry): void;   // called for every entry that passes the level filter
-  flush?(): void;                  // drain any in-memory buffer synchronously
-  close?(): Promise<void>;         // release resources (file handles, timers, etc.)
+  write(entry: LogEntry): void; // called for every entry that passes the level filter
+  flush?(): void; // drain any in-memory buffer synchronously
+  close?(): Promise<void>; // release resources (file handles, timers, etc.)
 }
 ```
 
@@ -43,11 +43,11 @@ Rich multi-line output using native ANSI escape codes — zero dependencies.
 
 **Console routing:**
 
-| Level | Console method |
-|-------|---------------|
-| `trace` `debug` `info` | `console.log` |
-| `warn` | `console.warn` |
-| `error` `fatal` | `console.error` |
+| Level                  | Console method  |
+| ---------------------- | --------------- |
+| `trace` `debug` `info` | `console.log`   |
+| `warn`                 | `console.warn`  |
+| `error` `fatal`        | `console.error` |
 
 ---
 
@@ -86,7 +86,7 @@ Works in Chrome DevTools, Firefox DevTools, and any standard browser console.
 
 ---
 
-### 4. FileTransport *(Node.js only)*
+### 4. FileTransport _(Node.js only)_
 
 Stream-based daily log rotation using `fs.createWriteStream`.
 
@@ -98,6 +98,7 @@ logs/
 ```
 
 **Key properties:**
+
 - Non-blocking `fs.createWriteStream` with `flags: 'a'`
 - Async write buffer — batches entries, flushes every N entries or T ms
 - Seamless midnight rollover with no dropped entries
@@ -109,11 +110,11 @@ import { Wiz } from '@gouranga_samrat/log-wiz';
 
 const logger = new Wiz({
   file: {
-    dir:            './logs',
-    maxFiles:       7,      // keep 1 week
-    asyncBuffer:    true,
-    bufferSize:     100,    // flush every 100 entries …
-    flushIntervalMs: 1000,  // … or every 1 s
+    dir: './logs',
+    maxFiles: 7, // keep 1 week
+    asyncBuffer: true,
+    bufferSize: 100, // flush every 100 entries …
+    flushIntervalMs: 1000, // … or every 1 s
   },
 });
 
@@ -130,11 +131,11 @@ Disable entirely with `file: false`.
 
 ## Format Auto-Detection
 
-| Condition checked (in order) | Transport selected |
-|------------------------------|-------------------|
-| `typeof window !== 'undefined'` | `ConsoleBrowserTransport` |
-| `NODE_ENV === 'production'` or `CI === 'true'` | `ConsoleJsonTransport` |
-| Everything else | `ConsolePrettyTransport` |
+| Condition checked (in order)                   | Transport selected        |
+| ---------------------------------------------- | ------------------------- |
+| `typeof window !== 'undefined'`                | `ConsoleBrowserTransport` |
+| `NODE_ENV === 'production'` or `CI === 'true'` | `ConsoleJsonTransport`    |
+| Everything else                                | `ConsolePrettyTransport`  |
 
 Override with `format: 'pretty' | 'json' | 'browser'`.
 
@@ -192,8 +193,9 @@ import { Wiz } from '@gouranga_samrat/log-wiz';
 
 const logger = new Wiz({
   level: 'info',
-  format: 'json',   // console → JSON
-  file: {           // file transport also active
+  format: 'json', // console → JSON
+  file: {
+    // file transport also active
     dir: './logs',
     maxFiles: 7,
   },

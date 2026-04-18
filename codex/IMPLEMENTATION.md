@@ -5,6 +5,7 @@ This document provides implementation-focused guidance for AI systems generating
 ## When Generating Code
 
 ### Code Style Rules
+
 - **Named exports only** — Never use `export default`
 - **TypeScript only** — All source is `.ts`, no `.js`
 - **Strict types** — No `any` types, use union types instead
@@ -12,6 +13,7 @@ This document provides implementation-focused guidance for AI systems generating
 - **Arrow functions** — Use `=>` functions over `function` keyword
 
 ### Type Definitions
+
 ```typescript
 // ✅ Good
 interface Config {
@@ -27,16 +29,18 @@ interface Config {
 ```
 
 ### Imports/Exports
+
 ```typescript
 // ✅ File exports named functions
-export function writeLog(entry: LogEntry): void { }
-export class CustomTransport implements Transport { }
+export function writeLog(entry: LogEntry): void {}
+export class CustomTransport implements Transport {}
 
 // ❌ File exports default
-export default function writeLog() { }
+export default function writeLog() {}
 ```
 
 ### Imports
+
 ```typescript
 // ✅ Named imports
 import { Wiz } from './core/wiz.js';
@@ -49,12 +53,15 @@ import Wiz from './core/wiz.js';
 ## Module Categories
 
 ### 1. Type Definition Modules
+
 **Location:** `src/types/`
+
 - Only contain interfaces, types, and type unions
 - No runtime code
 - No imports from other modules (except dependencies)
 
 Example structure:
+
 ```typescript
 export interface LogEntry {
   timestamp: string;
@@ -68,13 +75,16 @@ export type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal' |
 ```
 
 ### 2. Utility Modules
+
 **Location:** `src/utils/`
+
 - Pure functions only (no class state)
 - No side effects
 - Stateless
 - Accept input, return output
 
 Pattern:
+
 ```typescript
 export function mask(value: unknown, visitedSet: WeakSet<object>): unknown {
   // Pure function logic
@@ -83,13 +93,16 @@ export function mask(value: unknown, visitedSet: WeakSet<object>): unknown {
 ```
 
 ### 3. Transport Modules
+
 **Location:** `src/transports/`
+
 - Each implements `Transport` interface
 - Constructor may accept custom options
 - Methods: `write()`, optional `flush()`, optional `close()`
 - Should handle their own buffering/flushing if needed
 
 Pattern:
+
 ```typescript
 import type { Transport, LogEntry } from '../types/index.js';
 
@@ -101,23 +114,26 @@ export default class MyTransport implements Transport {
 ```
 
 ### 4. Core Module
+
 **Location:** `src/core/wiz.ts`
+
 - Main `Wiz` class
 - Orchestrates all utilities and transports
 - Manages configuration
 - Handles lifecycle (close, flush)
 
 Pattern:
+
 ```typescript
 export class Wiz implements IWiz {
   private config: WizConfig;
   private transports: Transport[];
 
-  constructor(config?: Partial<WizConfig>) { }
+  constructor(config?: Partial<WizConfig>) {}
 
-  info(message: string, options?: LogOptions): void { }
+  info(message: string, options?: LogOptions): void {}
 
-  async close(): Promise<void> { }
+  async close(): Promise<void> {}
 }
 
 export const wiz = new Wiz();
@@ -134,6 +150,7 @@ export const wiz = new Wiz();
 ## Build Exclusions
 
 ### Browser Bundle Exclusions
+
 These files/patterns are excluded from browser builds:
 
 - `src/transports/file.ts` — Requires `fs` module
@@ -141,10 +158,12 @@ These files/patterns are excluded from browser builds:
 - Configured in `tsconfig.browser.json` via `exclude: [...]`
 
 If you need Node.js-specific code:
+
 - Option 1: Put in a separate `*.node.ts` or `*.server.ts` file
 - Option 2: Use runtime checks: `typeof process !== 'undefined'`
 
 ### NPM Package Exclusions
+
 These directories are excluded from npm package via `.npmignore`:
 
 ```
@@ -160,6 +179,7 @@ codex/            # AI guides
 ## Testing Requirements
 
 ### Test File Structure
+
 ```typescript
 import { describe, it, expect, beforeEach, afterEach, jest } from '@jest/globals';
 
@@ -186,6 +206,7 @@ describe('ModuleName', () => {
 ```
 
 ### Mock Console Output
+
 ```typescript
 it('should log to console', () => {
   const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
@@ -198,6 +219,7 @@ it('should log to console', () => {
 ```
 
 ### Mock Environment Variables
+
 ```typescript
 beforeEach(() => {
   process.env.NODE_ENV = 'test';
@@ -211,11 +233,13 @@ afterEach(() => {
 ## Error Handling
 
 ### Error Types to Catch
+
 - `TypeError` — Invalid types
 - `RangeError` — Stack overflow (circular refs)
 - `SyntaxError` — Parsing errors
 
 ### Error Handling Pattern
+
 ```typescript
 try {
   const result = processThing(input);
@@ -230,25 +254,32 @@ try {
 ## Performance Considerations
 
 ### Critical Paths
+
 1. **Log call entry** — Must be fast (< 1ms)
 2. **Filtering** — Drop entries early if level doesn't match
 3. **Masking lookup** — Use Set/Map for O(1) key checking
 4. **Transport write** — Should not block (use async buffering)
 
 ### Optimization Patterns
+
 ```typescript
 // ✅ Fast: Build Set once, check O(1)
 const MASKED_KEYS = new Set(['password', 'token', 'secret']);
-if (MASKED_KEYS.has(key)) { /* mask it */ }
+if (MASKED_KEYS.has(key)) {
+  /* mask it */
+}
 
 // ❌ Slow: Array indexOf O(n) every time
 const MASKED_KEYS = ['password', 'token', 'secret'];
-if (MASKED_KEYS.includes(key)) { /* mask it */ }
+if (MASKED_KEYS.includes(key)) {
+  /* mask it */
+}
 ```
 
 ## Documentation Requirements
 
 ### Inline Comments
+
 - Only comment "why", not "what" (code shows what)
 - Explain non-obvious algorithms
 
@@ -263,6 +294,7 @@ this.visited.add(obj);
 ```
 
 ### JSDoc for Public APIs
+
 ```typescript
 /**
  * Masks sensitive fields in an object.
@@ -278,12 +310,14 @@ export function mask(value: unknown, visitedSet: WeakSet<object>): unknown {
 ## When Not to Modify
 
 ❌ **DO NOT CHANGE:**
+
 - `package.json` dependencies (zero-dependency rule)
 - `tsconfig.json` (strict settings required)
 - `.npmignore` entries (distribution control)
 - ESLint/Prettier configs (code style consistency)
 
 ✅ **OK TO CHANGE:**
+
 - Source files in `src/`
 - Test files in `tests/`
 - Examples in `examples/`

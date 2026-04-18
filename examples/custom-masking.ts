@@ -15,11 +15,11 @@ const logger = new Wiz({
 logger.info('Patient record accessed', {
   meta: {
     patientName: 'Jane Doe',
-    nationalId: '123-45-6789',         // → [MASKED]
-    medicalRecordNumber: 'MRN-00042',  // → [MASKED]
-    diagnosis: 'common cold',          // visible
+    nationalId: '123-45-6789', // → [MASKED]
+    medicalRecordNumber: 'MRN-00042', // → [MASKED]
+    diagnosis: 'common cold', // visible
     // Built-in defaults still active:
-    token: 'session-token-abc',        // → [MASKED]
+    token: 'session-token-abc', // → [MASKED]
   },
 });
 
@@ -33,8 +33,8 @@ const strictLogger = new Wiz({
 
 strictLogger.info('Audit event', {
   meta: {
-    internalRef: 'REF-999',  // → [MASKED]
-    token: 'still-visible',  // NOT masked — defaults replaced
+    internalRef: 'REF-999', // → [MASKED]
+    token: 'still-visible', // NOT masked — defaults replaced
     action: 'EXPORT',
   },
 });

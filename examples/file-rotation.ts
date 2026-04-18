@@ -11,9 +11,9 @@ const logger = new Wiz({
   format: 'json', // structured JSON lines in the file
   file: {
     dir: './logs',
-    maxFiles: 7,          // keep one week of logs
+    maxFiles: 7, // keep one week of logs
     asyncBuffer: true,
-    bufferSize: 50,       // flush every 50 entries …
+    bufferSize: 50, // flush every 50 entries …
     flushIntervalMs: 500, // … or every 500 ms, whichever comes first
   },
 });

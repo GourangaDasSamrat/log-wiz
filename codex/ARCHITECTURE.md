@@ -4,14 +4,14 @@ This document is designed for AI systems (including LLMs like ChatGPT, Grok, and
 
 ## Snapshot Summary
 
-| Aspect | Details |
-|--------|---------|
-| **Project** | Zero-dependency logging library for Node.js + Browser |
-| **Language** | TypeScript 5.x with strict type checking |
-| **Size** | < 1.5 KB gzipped (browser), minimal footprint (Node.js) |
-| **Core Dependency** | ZERO runtime dependencies — this is absolute |
-| **Main Feature** | Automatic PII masking + multi-environment logging |
-| **Entry Point** | `src/core/wiz.ts` (Wiz class, default singleton: `wiz`) |
+| Aspect              | Details                                                 |
+| ------------------- | ------------------------------------------------------- |
+| **Project**         | Zero-dependency logging library for Node.js + Browser   |
+| **Language**        | TypeScript 5.x with strict type checking                |
+| **Size**            | < 1.5 KB gzipped (browser), minimal footprint (Node.js) |
+| **Core Dependency** | ZERO runtime dependencies — this is absolute            |
+| **Main Feature**    | Automatic PII masking + multi-environment logging       |
+| **Entry Point**     | `src/core/wiz.ts` (Wiz class, default singleton: `wiz`) |
 
 ## Architecture at a Glance
 
@@ -36,12 +36,16 @@ Route to Transport(s):
 ## Core Modules (in dependency order)
 
 ### Layer 1: Types
+
 **File:** `src/types/index.ts`
+
 - Defines all interfaces: `WizConfig`, `LogEntry`, `Transport`, `LogLevel`, `StackFrame`, etc.
 - **Must read first** to understand data structures
 
 ### Layer 2: Utils (Stateless)
+
 **Files:**
+
 - `src/utils/masker.ts` — Masks sensitive fields (passwords, tokens, SSNs, etc.)
   - Algorithm: Recursive depth-first traversal with `WeakSet` for circular detection
   - Output: Deep clone with `[MASKED]` substitutions
@@ -61,16 +65,18 @@ Route to Transport(s):
   - **Browser build excludes this** (fs module not available)
 
 ### Layer 3: Transports (Pluggable)
+
 **File:** `src/transports/index.ts` exports all transport implementations
 
-| Transport | Target | Output Format | Notes |
-|-----------|--------|---------------|-------|
-| `ConsolePrettyTransport` | Node.js dev | Colored, multi-line | Default for dev |
-| `ConsoleJsonTransport` | Node.js prod | Single-line NDJSON | Default for prod |
-| `ConsoleBrowserTransport` | Browser | DevTools groups + tables | Optimized for browser DevTools |
-| `FileTransport` | Node.js (opt-in) | NDJSON, daily rotation | Stream-based, async buffer |
+| Transport                 | Target           | Output Format            | Notes                          |
+| ------------------------- | ---------------- | ------------------------ | ------------------------------ |
+| `ConsolePrettyTransport`  | Node.js dev      | Colored, multi-line      | Default for dev                |
+| `ConsoleJsonTransport`    | Node.js prod     | Single-line NDJSON       | Default for prod               |
+| `ConsoleBrowserTransport` | Browser          | DevTools groups + tables | Optimized for browser DevTools |
+| `FileTransport`           | Node.js (opt-in) | NDJSON, daily rotation   | Stream-based, async buffer     |
 
 Each implements `Transport` interface:
+
 ```typescript
 interface Transport {
   write(entry: LogEntry): void;
@@ -80,7 +86,9 @@ interface Transport {
 ```
 
 ### Layer 4: Core Logger
+
 **File:** `src/core/wiz.ts`
+
 - **Class:** `Wiz` — Main logger class
   - Constructor: `new Wiz(config?: Partial<WizConfig>)`
   - Methods: `.trace()`, `.debug()`, `.info()`, `.warn()`, `.error()`, `.fatal()`
@@ -119,6 +127,7 @@ wiz.error('Payment failed', {
 ## Key Algorithms
 
 ### PII Masking (src/utils/masker.ts)
+
 ```pseudocode
 function mask(value, visitedSet):
   if value in visitedSet:
@@ -137,10 +146,12 @@ function mask(value, visitedSet):
 
   return value
 ```
+
 **Time Complexity:** O(n) where n = total properties
 **Space Complexity:** O(h) where h = max nesting depth (for call stack)
 
 ### Environment Detection (src/utils/env.ts)
+
 ```
 if process exists:
   if NODE_ENV === 'production': env = 'production'
@@ -154,6 +165,7 @@ else:
 ```
 
 ### Transport Selection (src/core/wiz.ts)
+
 ```
 if runtime === 'browser':
   use ConsoleBrowserTransport
@@ -169,6 +181,7 @@ else if runtime === 'node':
 ## Config Merging & Validation
 
 When `setConfig(partial)` is called:
+
 1. Merge partial into current config (shallow merge)
 2. Validate required fields exist
 3. If `format` or `file` changed: rebuild affected transports
@@ -231,12 +244,14 @@ dist/
 ## Public API Surface
 
 **Singleton usage:**
+
 ```typescript
 import { wiz } from '@gouranga_samrat/log-wiz';
 wiz.info('message');
 ```
 
 **Instance usage:**
+
 ```typescript
 import { Wiz } from '@gouranga_samrat/log-wiz';
 const logger = new Wiz({ scope: 'api', level: 'debug' });
@@ -244,6 +259,7 @@ logger.debug('message');
 ```
 
 **Custom types:**
+
 ```typescript
 import type { WizConfig, LogEntry, Transport, LogLevel } from '@gouranga_samrat/log-wiz';
 ```
@@ -259,6 +275,7 @@ Breaking changes: Add ! after scope + BREAKING CHANGE: footer
 ```
 
 Example:
+
 ```
 feat(masker): add custom unmask replacement string
 
@@ -268,26 +285,32 @@ BREAKING CHANGE: WizConfig.maskChar removed in favor of maskReplacement
 ## Common Implementation Patterns
 
 ### Pattern 1: Adding a New Masked Key
+
 **File to edit:** `src/utils/masker.ts`
+
 1. Add key to `MASKED_KEYS` constant
 2. Add variants (camelCase, snake_case, UPPER_CASE)
 3. Add test in `tests/unit/masker.test.ts`
 
 ### Pattern 2: Adding a Custom Transport
+
 **File to create:** `src/transports/my-custom-transport.ts`
+
 ```typescript
 import type { Transport, LogEntry } from '../types/index.js';
 
 export default class MyTransport implements Transport {
-  write(entry: LogEntry): void { }
-  flush?(): void { }
-  async close?(): Promise<void> { }
+  write(entry: LogEntry): void {}
+  flush?(): void {}
+  async close?(): Promise<void> {}
 }
 ```
 
 ### Pattern 3: Environment-Specific Code
+
 **Browser build excludes files matching `*.browser.ts` pattern**
 For Node.js-only code, either:
+
 - Use `src/utils/file.ts` (excluded in browser build)
 - Or check `typeof window === 'undefined'` at runtime
 

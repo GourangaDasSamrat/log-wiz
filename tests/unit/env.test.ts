@@ -13,7 +13,7 @@ describe('isNode', () => {
 
 describe('isProduction', () => {
   const originalEnv = process.env['NODE_ENV'];
-  const originalCI  = process.env['CI'];
+  const originalCI = process.env['CI'];
 
   beforeEach(() => {
     // Always clear CI so GitHub Actions doesn't bleed into assertions

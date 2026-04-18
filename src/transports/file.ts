@@ -107,7 +107,10 @@ export class FileTransport implements Transport {
 
   private async closeStream(): Promise<void> {
     return new Promise((resolve) => {
-      if (!this.stream) { resolve(); return; }
+      if (!this.stream) {
+        resolve();
+        return;
+      }
       this.stream.end(() => resolve());
     });
   }

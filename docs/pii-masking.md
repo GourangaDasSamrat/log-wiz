@@ -36,24 +36,24 @@ wiz.info('event', { meta: { password: 'secret', userId: 42 } })
 The following keys are masked out of the box. Matching is **case-insensitive**
 and ignores `-`, `_`, and whitespace separators.
 
-| Key | Also matches |
-|-----|-------------|
-| `password` | `Password`, `PASSWORD` |
-| `passwd` | `Passwd` |
-| `token` | `Token`, `TOKEN` |
-| `accesstoken` | `accessToken`, `access_token`, `access-token` |
-| `refreshtoken` | `refreshToken`, `refresh_token` |
-| `secret` | `Secret`, `SECRET` |
-| `authorization` | `Authorization`, `AUTHORIZATION` |
-| `cookie` | `Cookie` |
-| `card_number` | `cardNumber`, `card-number`, `CardNumber` |
-| `cardnumber` | — |
-| `cvv` | `CVV` |
-| `ssn` | `SSN` |
-| `apikey` | `apiKey`, `api_key`, `api-key`, `API_KEY` |
-| `api_key` | — |
-| `privatekey` | `privateKey`, `private_key`, `private-key` |
-| `private_key` | — |
+| Key             | Also matches                                  |
+| --------------- | --------------------------------------------- |
+| `password`      | `Password`, `PASSWORD`                        |
+| `passwd`        | `Passwd`                                      |
+| `token`         | `Token`, `TOKEN`                              |
+| `accesstoken`   | `accessToken`, `access_token`, `access-token` |
+| `refreshtoken`  | `refreshToken`, `refresh_token`               |
+| `secret`        | `Secret`, `SECRET`                            |
+| `authorization` | `Authorization`, `AUTHORIZATION`              |
+| `cookie`        | `Cookie`                                      |
+| `card_number`   | `cardNumber`, `card-number`, `CardNumber`     |
+| `cardnumber`    | —                                             |
+| `cvv`           | `CVV`                                         |
+| `ssn`           | `SSN`                                         |
+| `apikey`        | `apiKey`, `api_key`, `api-key`, `API_KEY`     |
+| `api_key`       | —                                             |
+| `privatekey`    | `privateKey`, `private_key`, `private-key`    |
+| `private_key`   | —                                             |
 
 ---
 
@@ -68,8 +68,8 @@ wiz.info('checkout', {
       name: 'Alice',
       payment: {
         card_number: '4111-1111-1111-1111', // → [MASKED]
-        cvv: '123',                          // → [MASKED]
-        expiry: '12/26',                     // visible
+        cvv: '123', // → [MASKED]
+        expiry: '12/26', // visible
       },
     },
     items: [
@@ -111,9 +111,9 @@ const logger = new Wiz({
 
 logger.info('patient', {
   meta: {
-    name: 'Jane Doe',          // visible
+    name: 'Jane Doe', // visible
     nationalId: '123-45-6789', // → [MASKED]
-    token: 'abc',              // → [MASKED]  (built-in default still active)
+    token: 'abc', // → [MASKED]  (built-in default still active)
   },
 });
 ```
@@ -134,7 +134,7 @@ logger.info('audit', {
   meta: {
     internalRef: 'REF-999', // → [MASKED]
     token: 'still-visible', // visible — defaults were replaced
-    action: 'EXPORT',       // visible
+    action: 'EXPORT', // visible
   },
 });
 ```
@@ -158,22 +158,22 @@ logger.setConfig({ maskedKeys: ['newSecret', 'anotherField'] });
 wiz.info('example', {
   meta: {
     // ✅ Visible — not in the masked-key list
-    userId:    42,
-    email:     'user@example.com',
-    action:    'LOGIN',
+    userId: 42,
+    email: 'user@example.com',
+    action: 'LOGIN',
     timestamp: '2024-05-15T14:32:01Z',
 
     // 🔴 Masked — default keys
-    password:      'hunter2',     // → [MASKED]
-    token:         'eyJhbGci…',   // → [MASKED]
-    authorization: 'Bearer …',    // → [MASKED]
-    cookie:        'sid=abc',     // → [MASKED]
-    card_number:   '4111…',       // → [MASKED]
+    password: 'hunter2', // → [MASKED]
+    token: 'eyJhbGci…', // → [MASKED]
+    authorization: 'Bearer …', // → [MASKED]
+    cookie: 'sid=abc', // → [MASKED]
+    card_number: '4111…', // → [MASKED]
 
     // 🔴 Masked — nested
     session: {
-      refreshToken: 'rt-xyz',     // → [MASKED]
-      expiresAt: '2024-12-31',    // ✅ visible
+      refreshToken: 'rt-xyz', // → [MASKED]
+      expiresAt: '2024-12-31', // ✅ visible
     },
   },
 });

@@ -43,7 +43,9 @@ describe('FileTransport – sync (asyncBuffer: false)', () => {
     const today = new Date().toISOString().substring(0, 10);
     const lines = fs
       .readFileSync(path.join(tmpDir, `${today}.log`), 'utf8')
-      .trim().split('\n').filter(Boolean);
+      .trim()
+      .split('\n')
+      .filter(Boolean);
     expect(lines).toHaveLength(5);
   });
 });

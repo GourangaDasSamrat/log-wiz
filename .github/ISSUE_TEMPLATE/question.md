@@ -1,8 +1,8 @@
 ---
 name: ❓ Question / Help
 about: Ask a question or get help with using log-wiz
-title: "help: "
-labels: ["question", "needs-triage"]
+title: 'help: '
+labels: ['question', 'needs-triage']
 assignees: []
 ---
 

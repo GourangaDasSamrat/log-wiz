@@ -4,19 +4,19 @@ Quick reference for the log-wiz codebase structure.
 
 ## Files at a Glance
 
-| File | Purpose | Key Functions/Exports |
-|------|---------|----------------------|
-| `src/core/wiz.ts` | Main logger class | `Wiz` class, `wiz` singleton |
-| `src/types/index.ts` | All TypeScript types | `WizConfig`, `LogEntry`, `Transport`, `LogLevel` |
-| `src/utils/masker.ts` | PII masking logic | `mask()`, `isMaskedKey()` |
-| `src/utils/error-parser.ts` | Stack trace parsing | `parseError()` → `StackFrame[]` |
-| `src/utils/timestamp.ts` | Timestamp generation | `generateTimestamp()` → ISO 8601 |
-| `src/utils/env.ts` | Environment detection | `detectEnv()`, `detectRuntime()` |
-| `src/transports/console-pretty.ts` | Dev output (colored) | `ConsolePrettyTransport` |
-| `src/transports/console-json.ts` | Prod output (NDJSON) | `ConsoleJsonTransport` |
-| `src/transports/console-browser.ts` | Browser DevTools | `ConsoleBrowserTransport` |
-| `src/transports/file.ts` | File + rotation | `FileTransport` |
-| `src/index.ts` | Public API | All exports |
+| File                                | Purpose               | Key Functions/Exports                            |
+| ----------------------------------- | --------------------- | ------------------------------------------------ |
+| `src/core/wiz.ts`                   | Main logger class     | `Wiz` class, `wiz` singleton                     |
+| `src/types/index.ts`                | All TypeScript types  | `WizConfig`, `LogEntry`, `Transport`, `LogLevel` |
+| `src/utils/masker.ts`               | PII masking logic     | `mask()`, `isMaskedKey()`                        |
+| `src/utils/error-parser.ts`         | Stack trace parsing   | `parseError()` → `StackFrame[]`                  |
+| `src/utils/timestamp.ts`            | Timestamp generation  | `generateTimestamp()` → ISO 8601                 |
+| `src/utils/env.ts`                  | Environment detection | `detectEnv()`, `detectRuntime()`                 |
+| `src/transports/console-pretty.ts`  | Dev output (colored)  | `ConsolePrettyTransport`                         |
+| `src/transports/console-json.ts`    | Prod output (NDJSON)  | `ConsoleJsonTransport`                           |
+| `src/transports/console-browser.ts` | Browser DevTools      | `ConsoleBrowserTransport`                        |
+| `src/transports/file.ts`            | File + rotation       | `FileTransport`                                  |
+| `src/index.ts`                      | Public API            | All exports                                      |
 
 ## Quick Facts
 
@@ -49,6 +49,7 @@ Types
 ## Configuration Priority
 
 When a logger is created:
+
 1. User provides `config` object to `new Wiz(config)`
 2. Defaults are filled in from `WizConfig` type
 3. Environment is auto-detected

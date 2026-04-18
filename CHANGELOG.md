@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] – 2025-01-01
 
 ### Added
+
 - **Wiz class** – multi-instance logger with full TypeScript generics.
 - **Default singleton** `wiz` – zero-config drop-in.
 - **Automatic PII masking** – deep recursive scan with `WeakSet`-based circular-reference protection.

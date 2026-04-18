@@ -3,8 +3,8 @@
 ## Supported Versions
 
 | Version | Supported |
-|---------|:---------:|
-| 1.x     | ✅        |
+| ------- | :-------: |
+| 1.x     |    ✅     |
 
 Only the latest minor release of the current major version receives security patches.
 
@@ -16,7 +16,7 @@ Only the latest minor release of the current major version receives security pat
 
 Report security issues privately by one of these methods:
 
-- **GitHub Private Vulnerability Reporting** *(preferred)*
+- **GitHub Private Vulnerability Reporting** _(preferred)_
   [github.com/GourangaDasSamrat/log-wiz/security/advisories/new](https://github.com/GourangaDasSamrat/log-wiz/security/advisories/new)
 
 - **Email**
@@ -36,13 +36,13 @@ A useful report contains:
 
 ## Response Timeline
 
-| Milestone | Target |
-|-----------|--------|
-| Acknowledgement | Within **48 hours** |
-| Initial triage & severity assessment | Within **5 business days** |
-| Patch release (critical / high) | Within **14 days** of confirmation |
-| Patch release (medium / low) | Within **30 days** of confirmation |
-| Public disclosure | After the patch is released and users have had time to upgrade |
+| Milestone                            | Target                                                         |
+| ------------------------------------ | -------------------------------------------------------------- |
+| Acknowledgement                      | Within **48 hours**                                            |
+| Initial triage & severity assessment | Within **5 business days**                                     |
+| Patch release (critical / high)      | Within **14 days** of confirmation                             |
+| Patch release (medium / low)         | Within **30 days** of confirmation                             |
+| Public disclosure                    | After the patch is released and users have had time to upgrade |
 
 We follow [coordinated disclosure](https://en.wikipedia.org/wiki/Coordinated_vulnerability_disclosure).
 You will be credited in the security advisory unless you prefer to remain anonymous.

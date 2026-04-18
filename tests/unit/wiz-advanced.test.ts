@@ -8,7 +8,11 @@ import type { LogEntry, Transport } from '../../src/types';
 
 function makeCaptureTransport() {
   const entries: LogEntry[] = [];
-  const t: Transport = { write: (e) => entries.push(e), flush: jest.fn(), close: jest.fn().mockResolvedValue(undefined) };
+  const t: Transport = {
+    write: (e) => entries.push(e),
+    flush: jest.fn(),
+    close: jest.fn().mockResolvedValue(undefined),
+  };
   return { entries, transport: t };
 }
 
@@ -23,10 +27,21 @@ describe('Wiz – all log levels reachable', () => {
     const { entries, transport } = makeCaptureTransport();
     inject(logger, transport);
 
-    logger.trace('t'); logger.debug('d'); logger.info('i');
-    logger.warn('w'); logger.error('e'); logger.fatal('f');
+    logger.trace('t');
+    logger.debug('d');
+    logger.info('i');
+    logger.warn('w');
+    logger.error('e');
+    logger.fatal('f');
 
-    expect(entries.map(e => e.level)).toEqual(['trace','debug','info','warn','error','fatal']);
+    expect(entries.map((e) => e.level)).toEqual([
+      'trace',
+      'debug',
+      'info',
+      'warn',
+      'error',
+      'fatal',
+    ]);
   });
 });
 
@@ -97,7 +112,8 @@ describe('default singleton', () => {
 describe('Wiz – masking with replaceDefaultMaskedKeys', () => {
   it('only masks the custom key when replaceDefaultMaskedKeys=true', () => {
     const logger = new Wiz({
-      level: 'trace', file: false,
+      level: 'trace',
+      file: false,
       maskedKeys: ['onlyThis'],
       replaceDefaultMaskedKeys: true,
     });

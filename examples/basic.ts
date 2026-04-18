@@ -20,8 +20,8 @@ wiz.info('Processing request', {
 wiz.info('User login attempt', {
   meta: {
     username: 'alice',
-    password: 'hunter2',      // → [MASKED]
-    token: 'bearer-xyz',      // → [MASKED]
+    password: 'hunter2', // → [MASKED]
+    token: 'bearer-xyz', // → [MASKED]
     authorization: 'Basic …', // → [MASKED]
     email: 'alice@example.com',
   },

@@ -12,7 +12,9 @@ interface CaptureTransport {
 function makeCaptureTransport(): CaptureTransport {
   return {
     entries: [],
-    write(entry: LogEntry) { this.entries.push(entry); },
+    write(entry: LogEntry) {
+      this.entries.push(entry);
+    },
     flush() {},
   };
 }

@@ -58,17 +58,17 @@
 
 ## Why log-wiz?
 
-| Feature | log-wiz | winston | pino |
-|---|:---:|:---:|:---:|
-| Zero runtime dependencies | ✅ | ❌ | ❌ |
-| Automatic PII masking | ✅ | ❌ | ❌ |
-| Browser-native (< 1.5 KB gz) | ✅ | ❌ | ⚠️ |
-| Circular-reference safe | ✅ | ⚠️ | ✅ |
-| Structured stack-trace parsing | ✅ | ❌ | ⚠️ |
-| Multi-instance + scoped loggers | ✅ | ✅ | ✅ |
-| Built-in daily file rotation | ✅ | plugin | ✅ |
-| No-op mode (zero overhead) | ✅ | ⚠️ | ⚠️ |
-| Tree-shakable exports | ✅ | ❌ | ❌ |
+| Feature                         | log-wiz | winston | pino |
+| ------------------------------- | :-----: | :-----: | :--: |
+| Zero runtime dependencies       |   ✅    |   ❌    |  ❌  |
+| Automatic PII masking           |   ✅    |   ❌    |  ❌  |
+| Browser-native (< 1.5 KB gz)    |   ✅    |   ❌    |  ⚠️  |
+| Circular-reference safe         |   ✅    |   ⚠️    |  ✅  |
+| Structured stack-trace parsing  |   ✅    |   ❌    |  ⚠️  |
+| Multi-instance + scoped loggers |   ✅    |   ✅    |  ✅  |
+| Built-in daily file rotation    |   ✅    | plugin  |  ✅  |
+| No-op mode (zero overhead)      |   ✅    |   ⚠️    |  ⚠️  |
+| Tree-shakable exports           |   ✅    |   ❌    |  ❌  |
 
 ---
 
@@ -111,7 +111,13 @@ wiz.error('DB connection failed', { error: new Error('ECONNREFUSED') });
 **Production output (compact JSON, auto-selected when `NODE_ENV=production`):**
 
 ```json
-{"timestamp":"2024-05-15T14:32:01.123Z","level":"info","env":"node","message":"Server started","meta":{"port":3000}}
+{
+  "timestamp": "2024-05-15T14:32:01.123Z",
+  "level": "info",
+  "env": "node",
+  "message": "Server started",
+  "meta": { "port": 3000 }
+}
 ```
 
 > [!NOTE]
@@ -123,15 +129,15 @@ wiz.error('DB connection failed', { error: new Error('ECONNREFUSED') });
 
 Levels are ordered by severity. Entries below the configured level are silently dropped with zero overhead.
 
-| Level | Severity | Use case |
-|-------|:--------:|----------|
-| `trace` | 10 | Step-by-step debugging, very high volume |
-| `debug` | 20 | Development diagnostics |
-| `info` | 30 | Normal operational events *(default)* |
-| `warn` | 40 | Unexpected but recoverable |
-| `error` | 50 | An operation failed |
-| `fatal` | 60 | Process-level failure, exit imminent |
-| `none` | ∞ | **No-op mode** — zero output, zero overhead |
+| Level   | Severity | Use case                                    |
+| ------- | :------: | ------------------------------------------- |
+| `trace` |    10    | Step-by-step debugging, very high volume    |
+| `debug` |    20    | Development diagnostics                     |
+| `info`  |    30    | Normal operational events _(default)_       |
+| `warn`  |    40    | Unexpected but recoverable                  |
+| `error` |    50    | An operation failed                         |
+| `fatal` |    60    | Process-level failure, exit imminent        |
+| `none`  |    ∞     | **No-op mode** — zero output, zero overhead |
 
 ```typescript
 const logger = new Wiz({ level: 'warn' }); // drops trace / debug / info
@@ -149,11 +155,11 @@ The most painful part of logging is accidentally leaking secrets. log-wiz solves
 ```typescript
 wiz.info('User login', {
   meta: {
-    username:      'alice',
-    password:      'hunter2',       // → [MASKED] automatically
-    token:         'eyJhbGci...',   // → [MASKED] automatically
-    authorization: 'Bearer xyz',    // → [MASKED] automatically
-    email:         'alice@acme.com' // visible — not a default masked key
+    username: 'alice',
+    password: 'hunter2', // → [MASKED] automatically
+    token: 'eyJhbGci...', // → [MASKED] automatically
+    authorization: 'Bearer xyz', // → [MASKED] automatically
+    email: 'alice@acme.com', // visible — not a default masked key
   },
 });
 ```
@@ -181,19 +187,19 @@ const logger = new Wiz({
 import { Wiz } from '@gouranga_samrat/log-wiz';
 
 const logger = new Wiz({
-  level:                    'info',         // minimum severity to output
-  scope:                    'api',          // label shown on every entry
-  correlationId:            'worker-1',     // static ID for this instance
-  format:                   'pretty',       // 'pretty' | 'json' | 'browser' (auto-detected)
-  maskedKeys:               ['nationalId'], // extra keys to mask
-  replaceDefaultMaskedKeys: false,          // true = replace defaults, not extend
-  omitTimestamp:            false,          // useful for deterministic tests
+  level: 'info', // minimum severity to output
+  scope: 'api', // label shown on every entry
+  correlationId: 'worker-1', // static ID for this instance
+  format: 'pretty', // 'pretty' | 'json' | 'browser' (auto-detected)
+  maskedKeys: ['nationalId'], // extra keys to mask
+  replaceDefaultMaskedKeys: false, // true = replace defaults, not extend
+  omitTimestamp: false, // useful for deterministic tests
   file: {
-    dir:             './logs',  // log directory (created automatically)
-    maxFiles:        7,         // retain this many daily files
-    asyncBuffer:     true,      // batch writes — non-blocking
-    bufferSize:      100,       // flush every 100 entries...
-    flushIntervalMs: 1000,      // ...or every 1 second
+    dir: './logs', // log directory (created automatically)
+    maxFiles: 7, // retain this many daily files
+    asyncBuffer: true, // batch writes — non-blocking
+    bufferSize: 100, // flush every 100 entries...
+    flushIntervalMs: 1000, // ...or every 1 second
   },
 });
 
@@ -210,12 +216,12 @@ logger.setConfig({ level: 'debug' });
 
 log-wiz auto-detects your environment and picks the right transport:
 
-| Environment | Auto-selected transport | Output style |
-|---|---|---|
-| Development (Node.js) | `ConsolePrettyTransport` | Rich ANSI colours, multi-line |
-| Production / CI | `ConsoleJsonTransport` | Single-line NDJSON |
-| Browser | `ConsoleBrowserTransport` | Grouped DevTools output |
-| Node.js (any) | `FileTransport` | Daily rotating NDJSON files |
+| Environment           | Auto-selected transport   | Output style                  |
+| --------------------- | ------------------------- | ----------------------------- |
+| Development (Node.js) | `ConsolePrettyTransport`  | Rich ANSI colours, multi-line |
+| Production / CI       | `ConsoleJsonTransport`    | Single-line NDJSON            |
+| Browser               | `ConsoleBrowserTransport` | Grouped DevTools output       |
+| Node.js (any)         | `FileTransport`           | Daily rotating NDJSON files   |
 
 Override with `format: 'pretty' | 'json' | 'browser'`.
 
@@ -231,9 +237,9 @@ Create fully independent loggers per subsystem — each with its own level, scop
 ```typescript
 import { Wiz } from '@gouranga_samrat/log-wiz';
 
-const dbLogger   = new Wiz({ scope: 'database', level: 'debug' });
-const httpLogger = new Wiz({ scope: 'http',     level: 'info'  });
-const authLogger = new Wiz({ scope: 'auth',     level: 'trace' });
+const dbLogger = new Wiz({ scope: 'database', level: 'debug' });
+const httpLogger = new Wiz({ scope: 'http', level: 'info' });
+const authLogger = new Wiz({ scope: 'auth', level: 'trace' });
 
 dbLogger.debug('Connection pool ready', { meta: { poolSize: 10 } });
 // → █ DBG  ... [database] Connection pool ready
@@ -291,6 +297,7 @@ try {
 ```
 
 **Output:**
+
 ```
 █ ERR  2024-05-15 14:32:01.123 Query failed
   TypeError: Cannot read properties of null (reading 'rows')
@@ -358,7 +365,9 @@ class PaymentService {
 
 // Typed custom transport
 class MyTransport implements Transport {
-  write(entry: LogEntry): void { /* ... */ }
+  write(entry: LogEntry): void {
+    /* ... */
+  }
 }
 ```
 
@@ -392,7 +401,9 @@ class DatadogTransport implements Transport {
     });
   }
 
-  async close(): Promise<void> { this.flush(); }
+  async close(): Promise<void> {
+    this.flush();
+  }
 }
 
 const logger = new Wiz({ file: false });
@@ -412,12 +423,12 @@ Creates a new independent logger instance.
 
 ### `wiz.trace / .debug / .info / .warn / .error / .fatal(message, options?)`
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `message` | `string` | Primary human-readable message |
-| `options.meta` | `Record<string, unknown>` | Structured metadata — deep-cloned and PII-masked |
-| `options.error` | `Error` | Error object — stack parsed into `StackFrame[]` |
-| `options.correlationId` | `string` | Overrides the instance `correlationId` for this call |
+| Parameter               | Type                      | Description                                          |
+| ----------------------- | ------------------------- | ---------------------------------------------------- |
+| `message`               | `string`                  | Primary human-readable message                       |
+| `options.meta`          | `Record<string, unknown>` | Structured metadata — deep-cloned and PII-masked     |
+| `options.error`         | `Error`                   | Error object — stack parsed into `StackFrame[]`      |
+| `options.correlationId` | `string`                  | Overrides the instance `correlationId` for this call |
 
 ### `logger.setConfig(partial)`
 
@@ -477,15 +488,15 @@ The full documentation site is built with Astro + Starlight and hosted on GitHub
 
 **[https://GourangaDasSamrat.github.io/log-wiz-docs/](https://GourangaDasSamrat.github.io/log-wiz-docs/)**
 
-| Section | Description |
-|---------|-------------|
+| Section                                                                                     | Description                      |
+| ------------------------------------------------------------------------------------------- | -------------------------------- |
 | [Getting Started](https://GourangaDasSamrat.github.io/log-wiz-docs/guides/getting-started/) | Install and write your first log |
-| [PII Masking](https://GourangaDasSamrat.github.io/log-wiz-docs/guides/pii-masking/) | How automatic masking works |
-| [Transports](https://GourangaDasSamrat.github.io/log-wiz-docs/guides/transports/) | Built-in and custom transports |
-| [Configuration](https://GourangaDasSamrat.github.io/log-wiz-docs/reference/configuration/) | Every option documented |
-| [API Reference](https://GourangaDasSamrat.github.io/log-wiz-docs/reference/api/) | Complete method signatures |
-| [TypeScript Types](https://GourangaDasSamrat.github.io/log-wiz-docs/reference/types/) | All exported interfaces |
-| [Architecture](https://GourangaDasSamrat.github.io/log-wiz-docs/guides/architecture/) | How log-wiz works internally |
+| [PII Masking](https://GourangaDasSamrat.github.io/log-wiz-docs/guides/pii-masking/)         | How automatic masking works      |
+| [Transports](https://GourangaDasSamrat.github.io/log-wiz-docs/guides/transports/)           | Built-in and custom transports   |
+| [Configuration](https://GourangaDasSamrat.github.io/log-wiz-docs/reference/configuration/)  | Every option documented          |
+| [API Reference](https://GourangaDasSamrat.github.io/log-wiz-docs/reference/api/)            | Complete method signatures       |
+| [TypeScript Types](https://GourangaDasSamrat.github.io/log-wiz-docs/reference/types/)       | All exported interfaces          |
+| [Architecture](https://GourangaDasSamrat.github.io/log-wiz-docs/guides/architecture/)       | How log-wiz works internally     |
 
 ---
 

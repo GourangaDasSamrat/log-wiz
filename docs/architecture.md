@@ -27,18 +27,18 @@ User code
 
 ## Module Map
 
-| Module | Path | Responsibility |
-|--------|------|----------------|
-| **Types** | `src/types/index.ts` | All public interfaces, `LogLevel`, `LogEntry`, `WizConfig`, `Transport` |
-| **Wiz** | `src/core/wiz.ts` | Pipeline orchestration, level filter, transport factory, `setConfig` |
-| **Masker** | `src/utils/masker.ts` | Recursive PII masking, WeakSet circular-ref guard, key normalisation |
-| **ErrorParser** | `src/utils/error-parser.ts` | `Error` → `ParsedError` + `StackFrame[]` |
-| **Timestamp** | `src/utils/timestamp.ts` | ISO-8601 via `Date.toISOString()`, pretty formatter |
-| **Env** | `src/utils/env.ts` | Node/browser/production detection |
-| **PrettyTransport** | `src/transports/console-pretty.ts` | ANSI-coloured multi-line dev output |
-| **JsonTransport** | `src/transports/console-json.ts` | Single-line JSON for log aggregators |
-| **BrowserTransport** | `src/transports/console-browser.ts` | Grouped DevTools output |
-| **FileTransport** | `src/transports/file.ts` | Stream-based daily rotation + async buffer |
+| Module               | Path                                | Responsibility                                                          |
+| -------------------- | ----------------------------------- | ----------------------------------------------------------------------- |
+| **Types**            | `src/types/index.ts`                | All public interfaces, `LogLevel`, `LogEntry`, `WizConfig`, `Transport` |
+| **Wiz**              | `src/core/wiz.ts`                   | Pipeline orchestration, level filter, transport factory, `setConfig`    |
+| **Masker**           | `src/utils/masker.ts`               | Recursive PII masking, WeakSet circular-ref guard, key normalisation    |
+| **ErrorParser**      | `src/utils/error-parser.ts`         | `Error` → `ParsedError` + `StackFrame[]`                                |
+| **Timestamp**        | `src/utils/timestamp.ts`            | ISO-8601 via `Date.toISOString()`, pretty formatter                     |
+| **Env**              | `src/utils/env.ts`                  | Node/browser/production detection                                       |
+| **PrettyTransport**  | `src/transports/console-pretty.ts`  | ANSI-coloured multi-line dev output                                     |
+| **JsonTransport**    | `src/transports/console-json.ts`    | Single-line JSON for log aggregators                                    |
+| **BrowserTransport** | `src/transports/console-browser.ts` | Grouped DevTools output                                                 |
+| **FileTransport**    | `src/transports/file.ts`            | Stream-based daily rotation + async buffer                              |
 
 ---
 
@@ -86,12 +86,12 @@ wiz.info('msg', { meta, error, correlationId })
 
 log-wiz compiles to four output targets from a single TypeScript source tree:
 
-| Target | Config | Output dir | Consumers |
-|--------|--------|-----------|-----------|
-| **ESM** | `tsconfig.esm.json` | `dist/esm/` | Modern bundlers (Vite, Rollup, esbuild) |
-| **CJS** | `tsconfig.cjs.json` | `dist/cjs/` | Node.js `require()`, Jest, older tools |
-| **Browser** | `tsconfig.browser.json` | `dist/browser/` | Browser bundles — `fs` excluded |
-| **Types** | `tsconfig.types.json` | `dist/types/` | TypeScript declaration files only |
+| Target      | Config                  | Output dir      | Consumers                               |
+| ----------- | ----------------------- | --------------- | --------------------------------------- |
+| **ESM**     | `tsconfig.esm.json`     | `dist/esm/`     | Modern bundlers (Vite, Rollup, esbuild) |
+| **CJS**     | `tsconfig.cjs.json`     | `dist/cjs/`     | Node.js `require()`, Jest, older tools  |
+| **Browser** | `tsconfig.browser.json` | `dist/browser/` | Browser bundles — `fs` excluded         |
+| **Types**   | `tsconfig.types.json`   | `dist/types/`   | TypeScript declaration files only       |
 
 The `exports` field in `package.json` routes each consumer to the correct target:
 
@@ -99,9 +99,9 @@ The `exports` field in `package.json` routes each consumer to the correct target
 {
   "exports": {
     ".": {
-      "types":   "./dist/types/index.d.ts",
+      "types": "./dist/types/index.d.ts",
       "browser": "./dist/browser/index.js",
-      "import":  "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
     }
   }
@@ -130,6 +130,7 @@ absent from browser bundles — `fs` and `path` never appear in the browser outp
 ## Multi-Instance Model
 
 Each `new Wiz(config)` is a fully independent logger with its own:
+
 - Level threshold
 - Masked-key set
 - Transport list
@@ -158,8 +159,12 @@ export class SplunkTransport implements Transport {
     });
   }
 
-  flush(): void { /* no-op for HTTP */ }
-  async close(): Promise<void> { /* drain pending requests */ }
+  flush(): void {
+    /* no-op for HTTP */
+  }
+  async close(): Promise<void> {
+    /* drain pending requests */
+  }
 }
 ```
 

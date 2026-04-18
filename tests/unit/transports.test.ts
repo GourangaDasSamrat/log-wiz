@@ -26,8 +26,8 @@ describe('ConsolePrettyTransport', () => {
   let errorSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    logSpy   = jest.spyOn(console, 'log').mockImplementation(() => {});
-    warnSpy  = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
@@ -96,7 +96,15 @@ describe('ConsolePrettyTransport', () => {
         error: {
           name: 'Error',
           message: 'oops',
-          stack: [{ raw: 'at foo (src/a.ts:10:5)', function: 'foo', file: 'src/a.ts', line: 10, column: 5 }],
+          stack: [
+            {
+              raw: 'at foo (src/a.ts:10:5)',
+              function: 'foo',
+              file: 'src/a.ts',
+              line: 10,
+              column: 5,
+            },
+          ],
         },
       }),
     );
@@ -106,7 +114,7 @@ describe('ConsolePrettyTransport', () => {
 
   it('handles all log levels without throwing', () => {
     const t = new ConsolePrettyTransport();
-    for (const level of ['trace','debug','info','warn','error','fatal'] as const) {
+    for (const level of ['trace', 'debug', 'info', 'warn', 'error', 'fatal'] as const) {
       expect(() => t.write(makeEntry({ level }))).not.toThrow();
     }
   });
@@ -163,8 +171,8 @@ describe('ConsoleBrowserTransport', () => {
   });
 
   it('uses console.groupCollapsed when meta is present', () => {
-    const gcSpy  = jest.spyOn(console, 'groupCollapsed').mockImplementation(() => {});
-    const geSpy  = jest.spyOn(console, 'groupEnd').mockImplementation(() => {});
+    const gcSpy = jest.spyOn(console, 'groupCollapsed').mockImplementation(() => {});
+    const geSpy = jest.spyOn(console, 'groupEnd').mockImplementation(() => {});
     jest.spyOn(console, 'log').mockImplementation(() => {});
     new ConsoleBrowserTransport().write(makeEntry({ meta: { x: 1 } }));
     expect(gcSpy).toHaveBeenCalledTimes(1);
@@ -202,7 +210,7 @@ describe('ConsoleBrowserTransport', () => {
   it('renders error stack frames inside the group', () => {
     jest.spyOn(console, 'groupCollapsed').mockImplementation(() => {});
     jest.spyOn(console, 'groupEnd').mockImplementation(() => {});
-    const logSpy   = jest.spyOn(console, 'log').mockImplementation(() => {});
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
     new ConsoleBrowserTransport().write(
       makeEntry({

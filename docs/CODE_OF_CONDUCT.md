@@ -30,7 +30,7 @@ diverse, inclusive, and healthy community.
 - The use of sexualised language or imagery, and sexual attention or advances of any kind
 - Trolling, insulting or derogatory comments, and personal or political attacks
 - Public or private harassment
-- Publishing others' private information (physical or email addresses) without explicit permission — also known as *doxxing*
+- Publishing others' private information (physical or email addresses) without explicit permission — also known as _doxxing_
 - Dismissing or belittling contributions based on experience level
 - Sustained disruption of discussions, issues, or pull requests
 - Other conduct which could reasonably be considered inappropriate in a professional setting

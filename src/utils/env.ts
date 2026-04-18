@@ -10,7 +10,9 @@ export function isBrowser(): boolean {
 
 /** Returns true when running in Node.js. */
 export function isNode(): boolean {
-  return typeof process !== 'undefined' && process.versions != null && process.versions.node != null;
+  return (
+    typeof process !== 'undefined' && process.versions != null && process.versions.node != null
+  );
 }
 
 /** Returns true when NODE_ENV is 'production' or CI is set. */

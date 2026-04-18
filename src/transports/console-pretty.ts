@@ -37,8 +37,8 @@ function c(colour: AnsiKey, text: string): string {
 const LEVEL_STYLES: Record<string, { badge: string; msgColour: AnsiKey }> = {
   trace: { badge: `${ANSI.bgGrey}${ANSI.white} TRC ${ANSI.reset}`, msgColour: 'grey' },
   debug: { badge: `${ANSI.bgCyan}${ANSI.white} DBG ${ANSI.reset}`, msgColour: 'cyan' },
-  info:  { badge: `${ANSI.bgGreen}${ANSI.white} INF ${ANSI.reset}`, msgColour: 'green' },
-  warn:  { badge: `${ANSI.bgYellow}${ANSI.white} WRN ${ANSI.reset}`, msgColour: 'yellow' },
+  info: { badge: `${ANSI.bgGreen}${ANSI.white} INF ${ANSI.reset}`, msgColour: 'green' },
+  warn: { badge: `${ANSI.bgYellow}${ANSI.white} WRN ${ANSI.reset}`, msgColour: 'yellow' },
   error: { badge: `${ANSI.bgRed}${ANSI.white} ERR ${ANSI.reset}`, msgColour: 'red' },
   fatal: { badge: `${ANSI.bgMagenta}${ANSI.white} FTL ${ANSI.reset}`, msgColour: 'magenta' },
 };

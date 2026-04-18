@@ -6,9 +6,9 @@
 import { Wiz } from '../src/index.js';
 
 // ── One instance per sub-system ───────────────────────────────────────────────
-const dbLogger   = new Wiz({ scope: 'database', level: 'debug', file: false });
-const httpLogger = new Wiz({ scope: 'http',     level: 'info',  file: false });
-const authLogger = new Wiz({ scope: 'auth',     level: 'trace', file: false });
+const dbLogger = new Wiz({ scope: 'database', level: 'debug', file: false });
+const httpLogger = new Wiz({ scope: 'http', level: 'info', file: false });
+const authLogger = new Wiz({ scope: 'auth', level: 'trace', file: false });
 
 // ── Simulate an incoming HTTP request ────────────────────────────────────────
 const requestId = `req-${Date.now()}`;
@@ -22,7 +22,7 @@ authLogger.debug('Validating credentials', {
   correlationId: requestId,
   meta: {
     username: 'bob',
-    password: 's3cr3t',  // → [MASKED]
+    password: 's3cr3t', // → [MASKED]
   },
 });
 

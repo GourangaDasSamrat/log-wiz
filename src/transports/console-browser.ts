@@ -9,8 +9,8 @@ import { formatTimestampPretty } from '../utils/timestamp.js';
 const LEVEL_COLOURS: Record<string, string> = {
   trace: 'color: #9e9e9e',
   debug: 'color: #00bcd4',
-  info:  'color: #4caf50; font-weight: bold',
-  warn:  'color: #ff9800; font-weight: bold',
+  info: 'color: #4caf50; font-weight: bold',
+  warn: 'color: #ff9800; font-weight: bold',
   error: 'color: #f44336; font-weight: bold',
   fatal: 'color: #9c27b0; font-weight: bold',
 };
@@ -18,8 +18,8 @@ const LEVEL_COLOURS: Record<string, string> = {
 const LEVEL_EMOJI: Record<string, string> = {
   trace: '🔍',
   debug: '🐛',
-  info:  'ℹ️',
-  warn:  '⚠️',
+  info: 'ℹ️',
+  warn: '⚠️',
   error: '❌',
   fatal: '💀',
 };

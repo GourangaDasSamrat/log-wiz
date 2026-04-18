@@ -25,6 +25,7 @@ wiz.error('Request failed', { error: new Error('ECONNREFUSED') });
 ```
 
 **Development output (pretty):**
+
 ```
 █ INF  2024-05-15 14:32:01.123 Server started
   meta: { "port": 3000 }
@@ -38,8 +39,15 @@ wiz.error('Request failed', { error: new Error('ECONNREFUSED') });
 ```
 
 **Production output (JSON, auto-selected when `NODE_ENV=production`):**
+
 ```json
-{"timestamp":"2024-05-15T14:32:01.123Z","level":"info","env":"node","message":"Server started","meta":{"port":3000}}
+{
+  "timestamp": "2024-05-15T14:32:01.123Z",
+  "level": "info",
+  "env": "node",
+  "message": "Server started",
+  "meta": { "port": 3000 }
+}
 ```
 
 ---
@@ -82,14 +90,14 @@ logger.info('Processing charge', { meta: { amount: 9900, currency: 'USD' } });
 
 ## Log Levels
 
-| Level   | When to use |
-|---------|-------------|
-| `trace` | Step-by-step debugging, very high volume |
-| `debug` | Development diagnostics |
-| `info`  | Normal operational events *(default minimum)* |
-| `warn`  | Unexpected but recoverable conditions |
-| `error` | An operation failed |
-| `fatal` | Process-level failure, exit imminent |
+| Level   | When to use                                    |
+| ------- | ---------------------------------------------- |
+| `trace` | Step-by-step debugging, very high volume       |
+| `debug` | Development diagnostics                        |
+| `info`  | Normal operational events _(default minimum)_  |
+| `warn`  | Unexpected but recoverable conditions          |
+| `error` | An operation failed                            |
+| `fatal` | Process-level failure, exit imminent           |
 | `none`  | Silence all output (no-op mode, zero overhead) |
 
 ```typescript
@@ -106,9 +114,9 @@ Sensitive fields are masked automatically — no extra code needed:
 wiz.info('Login attempt', {
   meta: {
     username: 'alice',
-    password: 'hunter2',       // → [MASKED]
-    token: 'eyJhbGci…',        // → [MASKED]
-    email: 'alice@example.com' // visible — not a default masked key
+    password: 'hunter2', // → [MASKED]
+    token: 'eyJhbGci…', // → [MASKED]
+    email: 'alice@example.com', // visible — not a default masked key
   },
 });
 ```

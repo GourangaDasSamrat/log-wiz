@@ -52,11 +52,11 @@ When you open an issue, please use the appropriate template:
 
 ### Prerequisites
 
-| Tool | Minimum version |
-|------|----------------|
-| Node.js | 18.x |
-| npm | 9.x |
-| Git | 2.x |
+| Tool    | Minimum version |
+| ------- | --------------- |
+| Node.js | 18.x            |
+| npm     | 9.x             |
+| Git     | 2.x             |
 
 ### Steps
 
@@ -145,16 +145,16 @@ Every commit message must follow the format:
 
 ### Types
 
-| Type | When to use |
-|------|-------------|
-| `feat` | A new feature |
-| `fix` | A bug fix |
-| `docs` | Documentation only |
-| `test` | Adding or updating tests |
+| Type       | When to use                                     |
+| ---------- | ----------------------------------------------- |
+| `feat`     | A new feature                                   |
+| `fix`      | A bug fix                                       |
+| `docs`     | Documentation only                              |
+| `test`     | Adding or updating tests                        |
 | `refactor` | Code change that is neither a fix nor a feature |
-| `perf` | Performance improvement |
-| `chore` | Maintenance (deps, config, tooling) |
-| `ci` | CI/CD pipeline changes |
+| `perf`     | Performance improvement                         |
+| `chore`    | Maintenance (deps, config, tooling)             |
+| `ci`       | CI/CD pipeline changes                          |
 
 ### Scopes
 
@@ -222,12 +222,12 @@ npm run test:coverage     # with coverage report
 
 ### Coverage thresholds
 
-| Metric | Minimum |
-|--------|---------|
-| Statements | 80% |
-| Branches | 70% |
-| Functions | 75% |
-| Lines | 80% |
+| Metric     | Minimum |
+| ---------- | ------- |
+| Statements | 80%     |
+| Branches   | 70%     |
+| Functions  | 75%     |
+| Lines      | 80%     |
 
 PRs that drop coverage below these thresholds will fail CI.
 

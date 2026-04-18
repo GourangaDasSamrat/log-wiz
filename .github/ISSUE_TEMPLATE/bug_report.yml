@@ -1,6 +1,6 @@
 name: Bug Report
 description: Report a reproducible bug or regression
-title: "bug: "
+title: 'bug: '
 labels: [bug, needs-triage]
 assignees: []
 
@@ -74,7 +74,7 @@ body:
     id: logwiz-version
     attributes:
       label: log-wiz version
-      placeholder: "1.0.2"
+      placeholder: '1.0.2'
     validations:
       required: true
 
@@ -95,7 +95,7 @@ body:
     id: os
     attributes:
       label: Operating System
-      placeholder: "macOS 14 / Ubuntu 22.04 / Windows 11"
+      placeholder: 'macOS 14 / Ubuntu 22.04 / Windows 11'
     validations:
       required: true
 

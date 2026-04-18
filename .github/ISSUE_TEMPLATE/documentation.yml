@@ -1,6 +1,6 @@
 name: Documentation Improvement
 description: Report missing, unclear, or outdated documentation
-title: "docs: "
+title: 'docs: '
 labels: [documentation, needs-triage]
 assignees: []
 

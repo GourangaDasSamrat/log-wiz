@@ -1,8 +1,8 @@
 ---
 name: 📖 Documentation Improvement
 about: Report missing, unclear, or outdated documentation
-title: "docs: "
-labels: ["documentation", "needs-triage"]
+title: 'docs: '
+labels: ['documentation', 'needs-triage']
 assignees: []
 ---
 

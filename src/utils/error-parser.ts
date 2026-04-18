@@ -5,8 +5,7 @@
 
 import type { ParsedError, StackFrame } from '../types/index.js';
 
-const STACK_FRAME_RE =
-  /^\s*at\s+(?:(.+?)\s+\((.+?):(\d+):(\d+)\)|(.+?):(\d+):(\d+))\s*$/;
+const STACK_FRAME_RE = /^\s*at\s+(?:(.+?)\s+\((.+?):(\d+):(\d+)\)|(.+?):(\d+):(\d+))\s*$/;
 
 function parseFrame(raw: string): StackFrame {
   const match = STACK_FRAME_RE.exec(raw);

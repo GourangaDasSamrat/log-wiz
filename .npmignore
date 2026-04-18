@@ -20,5 +20,9 @@ logs/
 # Examples (kept in repo, not needed in package)
 examples/
 
-# docs
+# Documentation (kept in repo)
 docs/
+
+# AI Codebase Understanding Guides (development only)
+.claude/
+.codex/

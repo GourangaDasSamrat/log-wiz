@@ -1,0 +1,89 @@
+name: Question / Help
+description: Ask a question or get help with log-wiz
+title: "help: "
+labels: [question, needs-triage]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reaching out! Before submitting, please consider:
+
+        - **Questions are often better in [Discussions](https://github.com/GourangaDasSamrat/log-wiz/discussions)** — They're easier to discover and navigate
+        - Check the [documentation](https://GourangaDasSamrat.github.io/log-wiz-docs/) and [examples](https://github.com/GourangaDasSamrat/log-wiz/tree/main/examples)
+        - Search [existing issues](https://github.com/GourangaDasSamrat/log-wiz/issues) and [discussions](https://github.com/GourangaDasSamrat/log-wiz/discussions)
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know about log-wiz?
+      placeholder: How do I...?
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-tried
+    attributes:
+      label: What have you tried?
+      description: Show us your attempt(s) and any errors
+      placeholder: |
+        import { wiz } from '@gouranga_samrat/log-wiz';
+
+        // What I tried:
+        wiz.info('test');
+
+        // Error/unexpected result:
+      render: typescript
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should happen?
+      description: Describe the expected behavior
+      placeholder: I expected...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: node-version
+    attributes:
+      label: Node.js version
+      options:
+        - v18.x
+        - v20.x
+        - v22.x
+        - Browser
+        - Other (please specify)
+    validations:
+      required: true
+
+  - type: input
+    id: logwiz-version
+    attributes:
+      label: log-wiz version
+      placeholder: "1.0.2"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: "macOS / Ubuntu / Windows"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any other info that might help us answer your question
+
+  - type: markdown
+    attributes:
+      value: |
+        **💡 Remember:** For better visibility and community support, consider asking in [GitHub Discussions](https://github.com/GourangaDasSamrat/log-wiz/discussions) instead!
